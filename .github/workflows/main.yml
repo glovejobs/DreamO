@@ -22,6 +22,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Authenticate with Hugging Face
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      run: |
+        huggingface-cli login --token $HF_TOKEN
+
     - name: Run script
       run: |
-        python app.py  # change this if your entry point is different
+        python app.py  # adjust if needed
