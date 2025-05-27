@@ -1,0 +1,6 @@
+name: glovejobs/dreamo
+description: DreamO: A Unified Framework for Image Customization by ByteDance
+runtime: "python:3.10"
+dependencies:
+  - requirements.txt
+predict: app.predict
