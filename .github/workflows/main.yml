@@ -22,12 +22,20 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Authenticate with Hugging Face
-      env:
-        HF_TOKEN: ${{ secrets.HF_TOKEN }}
+    - name: Check disk space before cleanup
+      run: df -h
+
+    - name: Clean apt cache and remove temp files to free space
       run: |
-        huggingface-cli login --token $HF_TOKEN
+        sudo apt-get clean
+        rm -rf /tmp/*
+        rm -rf ~/.cache/huggingface
+
+    - name: Check disk space after cleanup
+      run: df -h
 
     - name: Run script
-      run: |
-        python app.py  # adjust if needed
+      run: python app.py  # change this if your entry point is different
+
+    - name: Check disk space after script
+      run: df -h
