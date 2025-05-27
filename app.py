@@ -45,7 +45,8 @@ args = parser.parse_args()
 
 class Generator:
     def __init__(self):
-        device = torch.device('cuda')
+        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
         # preprocessing models
         # background remove model: BEN2
         self.bg_rm_model = BEN2.BEN_Base().to(device).eval()
